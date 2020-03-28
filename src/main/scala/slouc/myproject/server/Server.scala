@@ -14,14 +14,14 @@ import scala.concurrent.ExecutionContext.global
 
 object Server {
 
-  def stream[F[_] : ConcurrentEffect](database: Database[F])(implicit T: Timer[F], C: ContextShift[F]): Stream[F, Nothing] = {
+  def stream[F[_] : Database : ConcurrentEffect](implicit T: Timer[F], C: ContextShift[F]): Stream[F, Nothing] = {
     for {
       client <- BlazeClientBuilder[F](global).stream
       jokeAlg     = Jokes.impl[F](client)
       fortyTwoAlg = FortyTwo.impl[F]()
 
       httpApp = (
-        Routes.jokeRoutes[F](jokeAlg) <+> Routes.fortyTwoRoutes[F](fortyTwoAlg, database)
+        Routes.jokeRoutes[F](jokeAlg) <+> Routes.fortyTwoRoutes[F](fortyTwoAlg)
       ).orNotFound
 
       finalHttpApp = Logger.httpApp(true, true)(httpApp)

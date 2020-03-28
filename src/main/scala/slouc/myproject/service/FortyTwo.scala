@@ -1,11 +1,11 @@
 package slouc.myproject.service
 
-import cats.effect.{IO, Sync}
+import cats.effect.Sync
 import org.http4s.client.dsl.Http4sClientDsl
 import slouc.myproject.persistence.Database
 
-trait FortyTwo[F[_]] {
-  def get(database: Database[F]): F[String]
+abstract class FortyTwo[F[_] : Database] {
+  def get: F[String]
 }
 
 object FortyTwo {
@@ -13,10 +13,8 @@ object FortyTwo {
 
   final case class JokeError(e: Throwable) extends RuntimeException
 
-  def impl[F[_] : Sync](): FortyTwo[F] = new FortyTwo[F] {
-    val dsl = new Http4sClientDsl[F] {}
-    def get(database: Database[F]): F[String] = {
-      database.get()
-    }
+  def impl[F[_] : Sync : Database](): FortyTwo[F] = new FortyTwo[F] {
+    val dsl            = new Http4sClientDsl[F] {}
+    def get: F[String] = Database[F].get()
   }
 }

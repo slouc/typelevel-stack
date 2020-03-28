@@ -21,14 +21,14 @@ object Routes {
     }
   }
 
-  def fortyTwoRoutes[F[_] : Sync](fortyTwo: FortyTwo[F], db: Database[F]): HttpRoutes[F] = {
+  def fortyTwoRoutes[F[_] : Sync : Database](fortyTwo: FortyTwo[F]): HttpRoutes[F] = {
     val dsl = new Http4sDsl[F] {}
     import dsl._
     HttpRoutes.of[F] {
       case GET -> Root / "fortyTwo" =>
         for {
-          fortyTwo <- fortyTwo.get(db)
-          resp <- Ok(fortyTwo)
+          fortyTwo <- fortyTwo.get
+          resp     <- Ok(fortyTwo)
         } yield resp
     }
   }
