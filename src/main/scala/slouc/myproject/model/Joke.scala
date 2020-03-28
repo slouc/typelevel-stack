@@ -2,13 +2,10 @@ package slouc.myproject.model
 
 import cats.Applicative
 import cats.effect.Sync
-import io.circe.{Decoder, Encoder}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
-import org.http4s.{EntityDecoder, EntityEncoder}
+import io.circe.{Decoder, Encoder}
 import org.http4s.circe.{jsonEncoderOf, jsonOf}
-
-import io.circe.generic.semiauto._
-import org.http4s.implicits._
+import org.http4s.{EntityDecoder, EntityEncoder}
 
 final case class Joke(joke: String) extends AnyVal
 
