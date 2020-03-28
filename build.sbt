@@ -1,6 +1,6 @@
 val Http4sVersion     = "0.21.1"
 val CirceVersion      = "0.13.0"
-val LogbackVersion    = "1.2.3"
+val Log4CatsVersion   = "1.0.1"
 val DoobieVersion     = "0.8.8"
 val PureConfigVersion = "0.12.3"
 
@@ -16,7 +16,7 @@ lazy val root = (project in file("."))
       "org.http4s"            %% "http4s-circe"        % Http4sVersion,
       "org.http4s"            %% "http4s-dsl"          % Http4sVersion,
       "io.circe"              %% "circe-generic"       % CirceVersion,
-      "ch.qos.logback"        % "logback-classic"      % LogbackVersion,
+      "io.chrisdavenport"     %% "log4cats-slf4j"      % Log4CatsVersion,
       "org.tpolecat"          %% "doobie-core"         % DoobieVersion,
       "org.tpolecat"          %% "doobie-hikari"       % DoobieVersion,
       "org.tpolecat"          %% "doobie-postgres"     % DoobieVersion,
