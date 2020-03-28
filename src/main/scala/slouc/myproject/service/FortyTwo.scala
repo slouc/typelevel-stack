@@ -2,10 +2,9 @@ package slouc.myproject.service
 
 import cats.effect.Sync
 import cats.implicits._
-import io.chrisdavenport.log4cats.Logger
+import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s.client.dsl.Http4sClientDsl
 import slouc.myproject.persistence.Database
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 
 abstract class FortyTwo[F[_] : Database] {
   def get: F[String]
