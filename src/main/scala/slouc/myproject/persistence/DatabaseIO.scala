@@ -6,18 +6,20 @@ import doobie.util.transactor.Transactor
 
 object DatabaseIO {
 
-  implicit val databaseIO = new Database[IO] {
+  import doobie.util.ExecutionContexts
 
-    import doobie.util.ExecutionContexts
+  val config = DatabaseConfig.config
+
+  implicit val databaseIO = new Database[IO] {
 
     implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
 
     def xa =
       Transactor.fromDriverManager[IO](
-        "org.postgresql.Driver",
-        "jdbc:postgresql:postgres",
-        "postgres",
-        "1234",
+        config.driver,
+        config.url,
+        config.username,
+        config.password,
         Blocker.liftExecutionContext(ExecutionContexts.synchronous)
       )
 
