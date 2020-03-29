@@ -23,8 +23,8 @@ object DatabaseIO {
         Blocker.liftExecutionContext(ExecutionContexts.synchronous)
       )
 
-    def get(): IO[String] = {
-      val query = sql"select email from users limit 1".query[String].unique
+    def get(id: Int): IO[String] = {
+      val query = sql"""select email from users where id=$id""".query[String].unique
       query.transact(xa)
     }
   }

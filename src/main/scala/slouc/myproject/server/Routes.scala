@@ -5,7 +5,7 @@ import cats.implicits._
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 import slouc.myproject.persistence.Database
-import slouc.myproject.service.{FortyTwo, Jokes}
+import slouc.myproject.service.{Users, Jokes}
 
 object Routes {
 
@@ -21,14 +21,14 @@ object Routes {
     }
   }
 
-  def fortyTwoRoutes[F[_] : Sync : Database](fortyTwo: FortyTwo[F]): HttpRoutes[F] = {
+  def usersRoutes[F[_] : Sync : Database](users: Users[F]): HttpRoutes[F] = {
     val dsl = new Http4sDsl[F] {}
     import dsl._
     HttpRoutes.of[F] {
-      case GET -> Root / "fortyTwo" =>
+      case GET -> Root / "users" / IntVar(id) =>
         for {
-          fortyTwo <- fortyTwo.get
-          resp     <- Ok(fortyTwo)
+          users <- users.get(id)
+          resp     <- Ok(users)
         } yield resp
     }
   }

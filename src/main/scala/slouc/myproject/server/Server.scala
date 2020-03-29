@@ -1,16 +1,14 @@
 package slouc.myproject.server
 
-import cats.effect.{ConcurrentEffect, ContextShift, Sync, Timer}
+import cats.effect.{ConcurrentEffect, ContextShift, Timer}
 import cats.implicits._
 import fs2.Stream
-import io.chrisdavenport.log4cats.Logger
-import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s.client.blaze.BlazeClientBuilder
 import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.server.middleware.{Logger => HttpLogger}
 import slouc.myproject.persistence.Database
-import slouc.myproject.service.{FortyTwo, Jokes}
+import slouc.myproject.service.{Jokes, Users}
 
 import scala.concurrent.ExecutionContext.global
 
@@ -21,10 +19,10 @@ object Server {
       for {
         client <- BlazeClientBuilder[F](global).stream
         jokeAlg     = Jokes.impl[F](client)
-        fortyTwoAlg = FortyTwo.impl[F]()
+        usersAlg = Users.impl[F]()
 
         httpApp = (
-          Routes.jokeRoutes[F](jokeAlg) <+> Routes.fortyTwoRoutes[F](fortyTwoAlg)
+          Routes.jokeRoutes[F](jokeAlg) <+> Routes.usersRoutes[F](usersAlg)
           ).orNotFound
 
         finalHttpApp = HttpLogger.httpApp(true, true)(httpApp)

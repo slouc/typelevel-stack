@@ -1,28 +1,31 @@
 package slouc.myproject.service
 
+import java.util.UUID
+
 import cats.effect.Sync
 import cats.implicits._
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s.client.dsl.Http4sClientDsl
 import slouc.myproject.persistence.Database
 
-abstract class FortyTwo[F[_] : Database] {
-  def get: F[String]
+abstract class Users[F[_] : Database] {
+  def get(id: Int): F[String]
 }
 
-object FortyTwo {
-  def apply[F[_]](implicit ev: FortyTwo[F]): FortyTwo[F] = ev
+object Users {
+  def apply[F[_]](implicit ev: Users[F]): Users[F] = ev
 
   final case class JokeError(e: Throwable) extends RuntimeException
 
-  def impl[F[_] : Sync : Database](): FortyTwo[F] = new FortyTwo[F] {
+  def impl[F[_] : Sync : Database](): Users[F] = new Users[F] {
     val dsl = new Http4sClientDsl[F] {}
     val loggerF = Slf4jLogger.create[F]
-    def get: F[String] =
+    def get(id: Int): F[String] =
       for {
         logger <- loggerF
-        result <- Database[F].get()
-        _      <- logger.info(s"Fetching $result.")
+        _      <- logger.info(s"Fetched user ID = $id.")
+        result <- Database[F].get(id)
+        _      <- logger.info(s"Fetched user ID = $id, email = $result.")
       } yield result
   }
 }

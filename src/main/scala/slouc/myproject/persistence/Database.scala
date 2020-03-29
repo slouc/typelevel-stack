@@ -2,7 +2,7 @@ package slouc.myproject.persistence
 
 trait Database[F[_]] {
 
-  def get(): F[String]
+  def get(id: Int): F[String]
 }
 
 object Database {
