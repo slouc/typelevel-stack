@@ -9,7 +9,7 @@ import org.http4s.client.dsl.Http4sClientDsl
 import slouc.myproject.persistence.Database
 
 abstract class Users[F[_] : Database] {
-  def get(id: Int): F[String]
+  def get(id: UUID): F[String]
 }
 
 object Users {
@@ -20,7 +20,7 @@ object Users {
   def impl[F[_] : Sync : Database](): Users[F] = new Users[F] {
     val dsl = new Http4sClientDsl[F] {}
     val loggerF = Slf4jLogger.create[F]
-    def get(id: Int): F[String] =
+    def get(id: UUID): F[String] =
       for {
         logger <- loggerF
         _      <- logger.info(s"Fetched user ID = $id.")

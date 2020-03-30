@@ -1,8 +1,10 @@
 package slouc.myproject.persistence
 
+import java.util.UUID
+
 trait Database[F[_]] {
 
-  def get(id: Int): F[String]
+  def get(id: UUID): F[String]
 }
 
 object Database {

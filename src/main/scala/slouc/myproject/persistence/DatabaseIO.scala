@@ -1,8 +1,11 @@
 package slouc.myproject.persistence
 
+import java.util.UUID
+
 import cats.effect.{Blocker, IO}
 import doobie.implicits._
 import doobie.util.transactor.Transactor
+import doobie.postgres.implicits._
 
 object DatabaseIO {
 
@@ -23,7 +26,7 @@ object DatabaseIO {
         Blocker.liftExecutionContext(ExecutionContexts.synchronous)
       )
 
-    def get(id: Int): IO[String] = {
+    def get(id: UUID): IO[String] = {
       val query = sql"""select email from users where id=$id""".query[String].unique
       query.transact(xa)
     }

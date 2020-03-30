@@ -25,7 +25,7 @@ object Routes {
     val dsl = new Http4sDsl[F] {}
     import dsl._
     HttpRoutes.of[F] {
-      case GET -> Root / "users" / IntVar(id) =>
+      case GET -> Root / "users" / UUIDVar(id) =>
         for {
           users <- users.get(id)
           resp     <- Ok(users)
