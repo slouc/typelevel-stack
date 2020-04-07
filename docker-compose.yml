@@ -11,15 +11,3 @@ services:
       POSTGRES_PASSWORD: 1234
     volumes:
       - ./docker/postgres:/docker-entrypoint-initdb.d
-  localstack:
-    image: localstack/localstack:0.10.3
-    environment:
-      SERVICES: "dynamodb, kinesis, sqs"
-      DEBUG: 1
-      KINESIS_ERROR_PROBABILITY: "0.0"
-    ports:
-      - "4568:4568" # Kinesis
-      - "4576:4576" # SQS
-      - "4569:4569" # KCL
-      - "8000:8000" # DynamoDB
-      - "9000:8080" # Localstack dashboard
