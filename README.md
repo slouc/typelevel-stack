@@ -17,20 +17,19 @@ SBT plugins:
 It uses [docker-compose](https://docs.docker.com/compose/) to pack the server together with a [PostgreSQL](https://www.postgresql.org/) database. This is useful for running the server locally.
 
 Server defines two endpoints:
-- `/users/[UUID]` for fetching users from the database
-- `/jokes` for fetching a joke from the [jokes server](https://icanhazdadjoke.com/)
+- GET `/users/[UUID]` for fetching users from the database
+- PUT `/users/[UUID]` for adding users to the database
 
-You can run it by simply running the server:
-```
-> sbt run
-```
-However, for using the database you will need to spin up docker:
+First spin up docker and populate the database, then run the server:
 ```
 > docker-compose up
+> sbt
+sbt:myproject> flywayMigrate
+sbt:myproject> run 
 ```
 
 You can try out the server by issuing
 ```
-> curl localhost:8080/joke
 > curl localhost:8080/users/f33f4247-938b-49cc-b8f7-a01d138ff26f
+> TODO PUT
 ```
