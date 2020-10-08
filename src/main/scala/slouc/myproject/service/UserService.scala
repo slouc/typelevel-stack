@@ -22,6 +22,14 @@ class UserService(userRepo: UserRepo, dbTransactor: Transactor[IO]) {
       _      <- logger.info(s"Fetched user with ID = $id, email = $result.")
     } yield result
 
+  def getAll(): IO[List[String]] =
+    for {
+      logger <- loggerF
+      _      <- logger.info(s"Fetching all users...")
+      result <- userRepo.getAll.transact(dbTransactor)
+      _      <- logger.info(s"Fetched all users.")
+    } yield result
+
   def create(email: String): IO[Int] =
     for {
       logger <- loggerF

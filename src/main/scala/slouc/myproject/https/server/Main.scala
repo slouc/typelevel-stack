@@ -1,10 +1,10 @@
-package slouc.myproject.server
+package slouc.myproject.https.server
 
 import java.util.concurrent.Executors
 
 import cats.effect.{ExitCode, IO, IOApp}
 import org.http4s.implicits._
-import org.http4s.server.blaze._
+import org.http4s.server.blaze.BlazeServerBuilder
 import slouc.myproject.persistence.{DatabaseIO, UserRepoImpl}
 import slouc.myproject.service.UserService
 
