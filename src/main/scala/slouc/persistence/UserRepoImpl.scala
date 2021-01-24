@@ -1,4 +1,4 @@
-package slouc.myproject.persistence
+package slouc.persistence
 
 import java.util.UUID
 

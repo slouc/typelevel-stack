@@ -22,10 +22,10 @@ Server defines two endpoints:
 
 First spin up docker and populate the database, then run the server:
 ```
-> docker-compose up
+> docker-compose up &
 > sbt
-sbt:myproject> flywayMigrate
-sbt:myproject> run 
+sbt:typelevelstack> flywayMigrate
+sbt:typelevelstack> run 
 ```
 
 You can try out the server by issuing

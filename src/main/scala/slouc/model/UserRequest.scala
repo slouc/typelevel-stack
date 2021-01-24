@@ -1,4 +1,4 @@
-package slouc.myproject.model
+package slouc.model
 
 import org.http4s.circe._
 import cats.effect.IO

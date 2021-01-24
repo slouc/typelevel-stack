@@ -1,4 +1,4 @@
-package slouc.myproject.persistence
+package slouc.persistence
 
 import cats.effect.{Blocker, IO}
 import doobie.util.transactor.Transactor

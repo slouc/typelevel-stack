@@ -1,4 +1,4 @@
-package slouc.myproject.persistence
+package slouc.persistence
 
 import pureconfig._
 import pureconfig.generic.auto._

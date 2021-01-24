@@ -1,4 +1,4 @@
-package slouc.myproject.service
+package slouc.service
 
 import java.util.UUID
 
@@ -7,7 +7,7 @@ import doobie.implicits._
 import doobie.util.transactor.Transactor
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
 import org.http4s.client.dsl.Http4sClientDsl
-import slouc.myproject.persistence.UserRepo
+import slouc.persistence.UserRepo
 
 class UserService(userRepo: UserRepo, dbTransactor: Transactor[IO]) {
 

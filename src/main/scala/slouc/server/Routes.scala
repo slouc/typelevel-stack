@@ -1,11 +1,11 @@
-package slouc.myproject.https.server
+package slouc.server
 
 import cats.effect.IO
 import org.http4s.HttpRoutes
 import org.http4s.circe.CirceEntityEncoder._
 import org.http4s.dsl.Http4sDsl
-import slouc.myproject.model.UserRequest
-import slouc.myproject.service.UserService
+import slouc.model.UserRequest
+import slouc.service.UserService
 
 object Routes {
 

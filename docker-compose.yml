@@ -6,7 +6,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: myproject
+      POSTGRES_DB: typelevelstack
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
     volumes:

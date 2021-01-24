@@ -5,13 +5,11 @@ val DoobieVersion         = "0.8.8"
 val Slf4jVersion          = "1.7.5"
 val PureConfigVersion     = "0.12.3"
 val FlywayVersion         = "2.5.0"
-val ZioVersion            = "1.0.1"
-val ZioInteropCatsVersion = "2.1.4.0"
 
 enablePlugins(FlywayPlugin)
 
 lazy val flywaySettings = Seq(
-  flywayUrl := "jdbc:postgresql://localhost:5432/myproject",
+  flywayUrl := "jdbc:postgresql://localhost:5432/typelevelstack",
   flywayUser := "postgres",
   flywayPassword := "1234",
   flywayLocations += "db/migration",
@@ -23,7 +21,7 @@ lazy val root = (project in file("."))
   .settings(flywaySettings)
   .settings(
     organization := "slouc",
-    name := "myproject",
+    name := "typelevel-stack",
     version := "0.0.1-SNAPSHOT",
     scalaVersion := "2.13.1",
     libraryDependencies ++= Seq(
@@ -34,7 +32,7 @@ lazy val root = (project in file("."))
       "org.tpolecat"          %% "doobie-postgres"     % DoobieVersion,
       "com.github.pureconfig" %% "pureconfig"          % PureConfigVersion,
       "org.hsqldb"            % "hsqldb"               % FlywayVersion
-    ) ++ httpDependencies ++ zioDependencies,
+    ) ++ httpDependencies,
     addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.10.3"),
     addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.0")
   )
@@ -44,11 +42,6 @@ lazy val httpDependencies = Seq(
   "org.http4s"            %% "http4s-blaze-client" % Http4sVersion,
   "org.http4s"            %% "http4s-circe"        % Http4sVersion,
   "org.http4s"            %% "http4s-dsl"          % Http4sVersion,
-)
-
-lazy val zioDependencies = Seq(
-  "dev.zio" %% "zio"              % ZioVersion,
-  "dev.zio" %% "zio-interop-cats" % ZioInteropCatsVersion
 )
 
 scalacOptions ++= Seq(
